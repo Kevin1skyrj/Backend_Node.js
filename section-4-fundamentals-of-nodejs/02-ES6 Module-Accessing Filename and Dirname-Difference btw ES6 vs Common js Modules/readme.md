@@ -238,21 +238,113 @@ console.log('Config path:', configPath);
 console.log('Public path:', publicPath);
 ```
 
-## Difference between CommonJS and ES6 Modules
+## Difference Between CommonJS and ES6 Modules
 
-| Feature | CommonJS | ES6 Modules |
-|---------|----------|-------------|
-| **Syntax** | `require()` / `module.exports` | `import` / `export` |
-| **Loading** | Synchronous | Asynchronous |
-| **When resolved** | Runtime | Compile time |
-| **File extension** | `.js` (default) | `.mjs` or `.js` with `"type": "module"` |
-| **Strict mode** | Optional | Always |
-| **Top-level await** | ❌ No | ✅ Yes |
-| **Tree shaking** | ❌ Limited | ✅ Full support |
-| **Circular dependencies** | ✅ Handled | ⚠️ Limited support |
-| **Dynamic imports** | ✅ `require()` | ✅ `import()` |
-| **`__filename`/`__dirname`** | ✅ Available | ❌ Use `import.meta.url` |
-| **Browser support** | ❌ No (needs bundler) | ✅ Native |
+---
+
+### Module Syntax
+
+- **CommonJS** uses `require()` for importing modules and `module.exports` or `exports` for exporting values.
+- **ES6 Modules (ESM)** use the `import` and `export` keywords, supporting both named and default exports.
+
+---
+
+### Module Resolution and Loading
+
+- **CommonJS** resolves and loads modules at runtime. The `require()` call executes where it appears in the code.
+- **ES6 Modules** are statically analyzed before execution. Dependencies are resolved during the module linking phase.
+
+> **Note:** ES modules perform asynchronous linking, but execution order remains deterministic.
+
+---
+
+### Hoisting Behavior
+
+- **CommonJS** imports are not hoisted because `require()` is a regular function call.
+- **ES6 Modules** imports are hoisted and evaluated before the rest of the module code executes.
+
+---
+
+### Execution Mode (Strict Mode)
+
+- **CommonJS** does not enable strict mode by default.
+- **ES6 Modules** always run in strict mode automatically.
+
+---
+
+### Top-Level Await
+
+- **CommonJS** does not support top-level `await`.
+- **ES6 Modules** support top-level `await`, allowing asynchronous operations directly at module scope.
+
+---
+
+### File Extensions and Configuration
+
+#### CommonJS
+- Uses `.js` by default in Node.js
+- Uses `.cjs` when explicitly defining CommonJS modules
+- `"type": "commonjs"` in `package.json` is optional (default behavior)
+
+#### ES6 Modules
+- Uses `.mjs`, or `.js` when `"type": "module"` is set in `package.json`
+- Requires explicit file extensions in import statements
+
+---
+
+### Export Behavior
+
+- **CommonJS** exports a single object (`module.exports`), with all exports as properties of that object.
+- **ES6 Modules** support multiple named exports and a single default export, enabling clearer module design.
+
+---
+
+### Tree Shaking Support
+
+- **CommonJS** has limited or no tree shaking because exports are dynamic and evaluated at runtime.
+- **ES6 Modules** fully support tree shaking due to static dependency analysis.
+
+---
+
+### Circular Dependencies
+
+- **CommonJS** handles circular dependencies by returning partially evaluated exports.
+- **ES6 Modules** resolve circular dependencies using live bindings, which require careful dependency ordering.
+
+---
+
+### Dynamic Imports
+
+- **CommonJS** uses `require()` for dynamic imports.
+- **ES6 Modules** use the standardized `import()` function, which returns a Promise.
+
+---
+
+### Globals and Module Metadata
+
+- **CommonJS** provides `__filename` and `__dirname` by default.
+- **ES6 Modules** do not provide these globals and instead use `import.meta.url` for file metadata.
+
+---
+
+### `this` at Top Level
+
+- **CommonJS**: `this` refers to `module.exports`.
+- **ES6 Modules**: `this` is `undefined` at the top level.
+
+---
+
+### Environment Support
+
+- **CommonJS** is Node.js–specific and not supported natively in browsers.
+- **ES6 Modules** are a JavaScript standard and are supported natively in modern browsers and Node.js.
+
+---
+
+### Summary
+
+- **CommonJS** is dynamic, runtime-based, and Node.js–centric.
+- **ES6 Modules** are static, optimized, and the modern standard for JavaScript modules across platforms.
 
 ### Syntax Comparison
 
