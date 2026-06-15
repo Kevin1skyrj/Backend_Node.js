@@ -11,7 +11,8 @@ const teacherCollection = db.collection("teachers");
 const resulst1 = await studentCollection.insertOne({ name: "Rajat", age: 22, grade: "A" });
 const result2 = await teacherCollection.insertMany([
   { name: "Mr. Smith", subject: "Math" },
-  { name: "Ms. Johnson", subject: "English" }
+  { name: "Ms. Johnson", subject: "English" },
+  { name: "Mrs. Brown", subject: "Science" }
 ]);
 console.log(resulst1);
 console.log(result2);
